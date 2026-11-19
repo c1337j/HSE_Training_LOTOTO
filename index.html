@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LOTOTO Master — P&amp;ID Isolation Training Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- ==================== TOP NAVIGATION BAR ==================== -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button id="btn-home" class="brand-btn" title="Return to Level Map">
+          <span class="brand-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" width="28" height="28">
+              <rect x="6" y="14" width="20" height="14" rx="4" fill="#ef4444" stroke="#1e293b" stroke-width="2.2"/>
+              <path d="M11 14V10a5 5 0 0 1 10 0v4" fill="none" stroke="#1e293b" stroke-width="2.6" stroke-linecap="round"/>
+              <circle cx="16" cy="20.5" r="2.2" fill="#fef08a"/>
+              <rect x="15" y="21.5" width="2" height="3.5" rx="1" fill="#fef08a"/>
+            </svg>
+          </span>
+          <span class="brand-text">
+            <strong>LOTOTO</strong> <span>MASTER</span>
+          </span>
+        </button>
+        <div id="topbar-level-pill" class="level-pill hidden">
+          <span id="hud-level-badge" class="pill-num">LVL 1</span>
+          <span id="hud-level-title" class="pill-title">Pump Seal Swap</span>
+        </div>
+      </div>
+
+      <!-- LOTOTO 3-Phase Stepper (visible during gameplay) -->
+      <nav id="lototo-stepper" class="lototo-stepper hidden" aria-label="LOTOTO Procedure Steps">
+        <div class="step-chip" id="step-lock" data-step="lock">
+          <span class="step-num">1</span>
+          <span class="step-label">LOCK &amp; TAG</span>
+          <span class="step-check" aria-hidden="true"></span>
+        </div>
+        <div class="step-arrow" aria-hidden="true">→</div>
+        <div class="step-chip" id="step-vent" data-step="vent">
+          <span class="step-num">2</span>
+          <span class="step-label">VENT &amp; DRAIN</span>
+          <span class="step-check" aria-hidden="true"></span>
+        </div>
+        <div class="step-arrow" aria-hidden="true">→</div>
+        <div class="step-chip" id="step-tryout" data-step="tryout">
+          <span class="step-num">3</span>
+          <span class="step-label">TRYOUT</span>
+          <span class="step-check" aria-hidden="true"></span>
+        </div>
+      </nav>
+
+      <div class="topbar-right">
+        <div class="stat-pill xp-pill" title="Safety Rank &amp; XP">
+          <span class="stat-icon">⚡</span>
+          <span id="hud-rank">Trainee</span>
+          <span class="stat-divider">·</span>
+          <span id="hud-xp">0 XP</span>
+        </div>
+        <div class="stat-pill stars-pill" title="Total Stars Earned">
+          <span class="stat-icon">★</span>
+          <span id="hud-stars">0 / 45</span>
+        </div>
+        <button id="btn-sound" class="icon-btn" title="Toggle Sound Effects" aria-label="Toggle Sound Effects">
+          <span id="sound-icon">🔊</span>
+        </button>
+        <button id="btn-guide" class="icon-btn" title="LOTOTO Quick Guide &amp; P&amp;ID Legend" aria-label="Open P&amp;ID Legend">
+          <span>?</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ==================== LEVEL MAP / HOME SCREEN ==================== -->
+    <main id="screen-map" class="screen active">
+      <section class="hero-banner">
+        <div class="hero-content">
+          <div class="hero-badge">P&amp;ID ISOLATION &amp; SAFETY SIMULATOR</div>
+          <h1>Master <span>Lockout · Tagout · Tryout</span> on Live P&amp;IDs</h1>
+          <p>
+            Select and lock isolation points on color-coded piping diagrams, watch isolated flow paths
+            highlight like a real job-prep markup, release stored energy, and perform Tryout verification
+            before issuing a Safe Work Permit.
+          </p>
+          <div class="hero-actions">
+            <button id="btn-play-next" class="btn btn-primary btn-lg">
+              ▶ Play Level 1
+            </button>
+            <button id="btn-how-to-play" class="btn btn-secondary btn-lg">
+              📘 P&amp;ID Legend &amp; Rules
+            </button>
+            <label class="unlock-toggle" title="Allow jumping to any level (great for instructors &amp; demos)">
+              <input type="checkbox" id="chk-unlock-all" />
+              <span>Instructor Mode (Unlock All 15)</span>
+            </label>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="mini-markup-card">
+            <div class="mini-card-header">
+              <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+              <span>LIVE P&amp;ID MARKUP PREVIEW</span>
+            </div>
+            <svg viewBox="0 0 340 165" class="mini-svg" aria-hidden="true">
+              <defs>
+                <pattern id="miniGrid" width="16" height="16" patternUnits="userSpaceOnUse">
+                  <circle cx="2" cy="2" r="1" fill="#cbd5e1"/>
+                </pattern>
+              </defs>
+              <rect width="340" height="165" rx="10" fill="#f8fafc"/>
+              <rect width="340" height="165" rx="10" fill="url(#miniGrid)"/>
+              <!-- Live pipe left -->
+              <line x1="18" y1="86" x2="88" y2="86" stroke="#0284c7" stroke-width="6" stroke-linecap="round"/>
+              <line x1="18" y1="86" x2="88" y2="86" stroke="#7dd3fc" stroke-width="2.5" stroke-dasharray="7 7" class="flow-anim"/>
+              <!-- Isolated Highlighter -->
+              <line x1="88" y1="86" x2="252" y2="86" stroke="rgba(74, 222, 128, 0.55)" stroke-width="20" stroke-linecap="round"/>
+              <line x1="88" y1="86" x2="252" y2="86" stroke="#15803d" stroke-width="5" stroke-linecap="round"/>
+              <!-- Live pipe right -->
+              <line x1="252" y1="86" x2="322" y2="86" stroke="#0284c7" stroke-width="6" stroke-linecap="round"/>
+              <line x1="252" y1="86" x2="322" y2="86" stroke="#7dd3fc" stroke-width="2.5" stroke-dasharray="7 7" class="flow-anim-rev"/>
+              <!-- Locked Valve 1 -->
+              <g transform="translate(88,86)">
+                <polygon points="-14,-10 0,0 -14,10" fill="#ef4444" stroke="#1e293b" stroke-width="2"/>
+                <polygon points="14,-10 0,0 14,10" fill="#ef4444" stroke="#1e293b" stroke-width="2"/>
+                <rect x="-8" y="-28" width="16" height="12" rx="3" fill="#ef4444" stroke="#1e293b" stroke-width="1.8"/>
+                <path d="M-4,-28 v-4 a4,4 0 0,1 8,0 v4" fill="none" stroke="#1e293b" stroke-width="2"/>
+              </g>
+              <!-- Target Pump -->
+              <g transform="translate(170,86)">
+                <circle r="24" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+                <polygon points="-8,-11 13,0 -8,11" fill="#16a34a"/>
+                <text y="39" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800" fill="#15803d">P-101 SAFE ✓</text>
+              </g>
+              <!-- Locked Valve 2 -->
+              <g transform="translate(252,86)">
+                <polygon points="-14,-10 0,0 -14,10" fill="#ef4444" stroke="#1e293b" stroke-width="2"/>
+                <polygon points="14,-10 0,0 14,10" fill="#ef4444" stroke="#1e293b" stroke-width="2"/>
+                <rect x="-8" y="-28" width="16" height="12" rx="3" fill="#ef4444" stroke="#1e293b" stroke-width="1.8"/>
+                <path d="M-4,-28 v-4 a4,4 0 0,1 8,0 v4" fill="none" stroke="#1e293b" stroke-width="2"/>
+              </g>
+              <text x="170" y="24" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="800" fill="#0f172a">ISOLATED ENVELOPE HIGHLIGHTED</text>
+              <text x="50" y="114" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#0284c7">LIVE 150 PSI</text>
+              <text x="292" y="114" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#0284c7">LIVE HEADER</text>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <section class="campaign-section">
+        <div class="campaign-header">
+          <div>
+            <h2>15-Level LOTOTO Certification Campaign</h2>
+            <p class="subtitle">Progress from single-pump isolation to full turnaround packages.</p>
+          </div>
+          <div class="campaign-progress-wrap">
+            <div class="progress-text"><span id="map-completed-count">0</span> / 15 Permits Issued</div>
+            <div class="progress-bar"><div id="map-progress-fill" class="progress-fill" style="width:0%"></div></div>
+          </div>
+        </div>
+
+        <div id="tier-container" class="tiers-wrapper">
+          <!-- Populated dynamically by app.js -->
+        </div>
+      </section>
+    </main>
+
+    <!-- ==================== GAMEPLAY SCREEN ==================== -->
+    <main id="screen-game" class="screen">
+      <div class="game-layout">
+        <!-- Left/Main P&ID Canvas Area -->
+        <section class="pid-stage-card">
+          <div class="pid-toolbar">
+            <div class="pid-toolbar-left">
+              <button id="btn-briefing" class="tool-chip" title="View Work Order Briefing">
+                📋 Work Permit Brief
+              </button>
+              <span id="standard-badge" class="standard-badge">SINGLE BLOCK</span>
+              <span id="combo-badge" class="combo-badge hidden">🔥 3x Clean Streak</span>
+            </div>
+            <div class="pid-toolbar-right">
+              <div class="score-readout" title="Safety Compliance Score">
+                <span class="score-label">SAFETY</span>
+                <span id="hud-safety-score" class="score-val">100%</span>
+              </div>
+              <button id="btn-hint" class="tool-chip hint-chip" title="Highlight a helpful next step (-10% score)">
+                💡 Hint
+              </button>
+              <button id="btn-reset" class="tool-chip" title="Reset this P&amp;ID level">
+                ↺ Reset
+              </button>
+            </div>
+          </div>
+
+          <!-- Live Alert / Feedback Banner -->
+          <div id="toast-banner" class="toast-banner info" role="status" aria-live="polite">
+            <span id="toast-icon" class="toast-icon">ℹ️</span>
+            <span id="toast-text">Select isolation valves &amp; electrical breakers on the P&amp;ID to begin locking out energy sources.</span>
+          </div>
+
+          <!-- Interactive SVG P&ID Viewport -->
+          <div id="pid-viewport" class="pid-viewport">
+            <svg id="pid-svg" viewBox="0 0 1000 580" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Interactive P&amp;ID Schematic">
+              <!-- Rendered dynamically by renderer.js -->
+            </svg>
+            <div id="pid-tooltip" class="pid-tooltip hidden"></div>
+          </div>
+
+          <!-- Compact Highlighter & Fluid Legend Bar -->
+          <div class="pid-legend-bar">
+            <div class="legend-group">
+              <span class="legend-title">MARKUP:</span>
+              <span class="legend-item"><i class="swatch hl-yellow"></i>Isolated (Trapped)</span>
+              <span class="legend-item"><i class="swatch hl-green"></i>Zero Energy (Safe)</span>
+              <span class="legend-item"><i class="swatch hl-lock"></i>Locked &amp; Tagged</span>
+            </div>
+            <div class="legend-group">
+              <span class="legend-title">STREAMS:</span>
+              <span class="legend-item"><i class="swatch st-process"></i>Process</span>
+              <span class="legend-item"><i class="swatch st-steam"></i>Steam/Hot</span>
+              <span class="legend-item"><i class="swatch st-water"></i>Water</span>
+              <span class="legend-item"><i class="swatch st-gas"></i>Gas/N2</span>
+              <span class="legend-item"><i class="swatch st-elec"></i>Electrical</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Right Sidebar: Permit Checklist & Controls -->
+        <aside class="side-panel">
+          <div class="panel-card target-card">
+            <div class="card-eyebrow">WORK ORDER TARGET</div>
+            <h3 id="side-target-name">P-101 Centrifugal Pump</h3>
+            <p id="side-work-scope" class="work-scope">Mechanical seal replacement. Isolate all energy sources and verify zero energy.</p>
+            <div id="keep-live-callout" class="keep-live-callout hidden">
+              <span class="kl-icon">⚡</span>
+              <span id="keep-live-text">Keep P-201B running online!</span>
+            </div>
+          </div>
+
+          <div class="panel-card checklist-card">
+            <div class="card-header-row">
+              <div class="card-eyebrow">LOTOTO PERMIT CHECKLIST</div>
+              <span id="checklist-fraction" class="fraction-pill">0 / 4</span>
+            </div>
+            <ul id="permit-checklist" class="permit-checklist">
+              <!-- Populated dynamically -->
+            </ul>
+          </div>
+
+          <div class="panel-card log-card">
+            <div class="card-eyebrow">ISOLATION LOGBOOK</div>
+            <ul id="action-log" class="action-log">
+              <!-- Recent actions -->
+            </ul>
+          </div>
+
+          <div class="permit-cta-wrap">
+            <button id="btn-issue-permit" class="btn btn-permit" disabled>
+              <span class="permit-btn-icon">🛡️</span>
+              <span id="permit-btn-label">Complete LOTOTO to Issue Permit</span>
+            </button>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- ==================== MODAL: WORK ORDER BRIEFING ==================== -->
+    <div id="modal-briefing" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+      <div class="modal-card briefing-modal">
+        <div class="modal-badge" id="brief-tier-badge">TIER 1 · LEVEL 1</div>
+        <h2 id="brief-title">Pump Seal Swap</h2>
+        <div class="brief-grid">
+          <div class="brief-box">
+            <div class="brief-label">TARGET EQUIPMENT</div>
+            <div class="brief-val" id="brief-target">P-101 Centrifugal Pump</div>
+          </div>
+          <div class="brief-box">
+            <div class="brief-label">ISOLATION STANDARD</div>
+            <div class="brief-val" id="brief-standard">Single Block &amp; Bleed</div>
+          </div>
+        </div>
+        <p id="brief-description" class="brief-desc"></p>
+        <div class="brief-tip-box">
+          <div class="tip-title">🎯 SAFETY FOCUS</div>
+          <p id="brief-lesson"></p>
+        </div>
+        <div class="modal-actions">
+          <button id="btn-start-level" class="btn btn-primary btn-lg">Start P&amp;ID Isolation →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== MODAL: LEVEL COMPLETE / PERMIT ISSUED ==================== -->
+    <div id="modal-complete" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+      <div class="modal-card complete-modal">
+        <div class="permit-stamp">SAFE WORK PERMIT ISSUED</div>
+        <div id="complete-stars" class="stars-display" aria-label="Star Rating">★★★</div>
+        <h2 id="complete-title">Zero Energy Verified!</h2>
+        <p id="complete-subtitle" class="complete-sub">P-101 is safely isolated and ready for maintenance.</p>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-box-label">Safety Score</div>
+            <div class="stat-box-val" id="comp-score">100%</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-label">Mistakes</div>
+            <div class="stat-box-val" id="comp-mistakes">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-label">XP Earned</div>
+            <div class="stat-box-val xp-val" id="comp-xp">+150 XP</div>
+          </div>
+        </div>
+
+        <div class="takeaway-box">
+          <div class="tip-title">🦺 REAL-WORLD LOTOTO TAKEAWAY</div>
+          <p id="comp-takeaway"></p>
+        </div>
+
+        <div class="modal-actions">
+          <button id="btn-replay-level" class="btn btn-secondary">↺ Replay</button>
+          <button id="btn-back-map" class="btn btn-secondary">🗺️ Level Map</button>
+          <button id="btn-next-level" class="btn btn-primary btn-lg">Next Level →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== MODAL: P&ID LEGEND & GUIDE ==================== -->
+    <div id="modal-guide" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+      <div class="modal-card guide-modal">
+        <div class="modal-header-row">
+          <h2>📘 LOTOTO Field Guide &amp; P&amp;ID Symbols</h2>
+          <button id="btn-close-guide" class="close-x" aria-label="Close Guide">✕</button>
+        </div>
+        <div class="guide-sections">
+          <div class="guide-block">
+            <h3>The 3-Step LOTOTO Sequence</h3>
+            <ol class="guide-steps">
+              <li><strong>Lock &amp; Tag (LOTO):</strong> Close and apply personal locks/tags to manual block valves &amp; electrical MCC breakers. Watch isolated pipes automatically highlight in <strong>Yellow</strong>!</li>
+              <li><strong>Vent &amp; Drain:</strong> Open vents, drains, or inter-valve bleeds on <em>isolated</em> segments to release trapped stored energy. The highlighter turns <strong>Emerald Green</strong>! (Never vent a live pressurized line!)</li>
+              <li><strong>Tryout (TO):</strong> Prove Zero Energy! Click local <strong>Start/Stop (HOA)</strong> switches to verify motors won't start, click <strong>Pressure Gauges (PI)</strong> at <code>0 PSI</code>, and run <strong>Gas Monitors</strong> for confined space entry.</li>
+            </ol>
+          </div>
+          <div class="guide-block">
+            <h3>Watch Out for Industrial Traps!</h3>
+            <ul class="guide-traps">
+              <li><strong>Control Valves (FV / LV / PV):</strong> NOT valid positive isolation! Actuators can fail open and trim leaks. Always lock manual block valves.</li>
+              <li><strong>Check Valves (CV):</strong> One-way flappers are NOT valid LOTO points—they cannot be locked and frequently leak backpressure.</li>
+              <li><strong>Spectacle Blinds (SB):</strong> Required for hot work / line breaking / confined space—always isolate &amp; depressurize <em>before</em> swinging a blind!</li>
+              <li><strong>Keep-Live Units:</strong> Don't close a shared plant header if a standby pump or adjacent unit must stay online!</li>
+            </ul>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button id="btn-guide-ok" class="btn btn-primary">Got It — Back to P&amp;ID</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confetti Canvas Overlay -->
+    <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
+  </div>
+
+  <!-- Ordered standard scripts (works both via file:// and GitHub Pages) -->
+  <script src="js/audio.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/levels.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
