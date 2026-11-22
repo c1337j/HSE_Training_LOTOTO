@@ -87,4 +87,4 @@ LOTOTO-PID-Game/
 
 ## Safety & Training Disclaimer
 
-> **For Educational & Gamified Training Use Only:** This application is a simplified interactive learning aid designed to build familiarity with P&ID isolation concepts and Lockout, Tagout, Tryout (LOTOTO) principles. It is **not** a substitute for formal training, qualified supervision, applicable regulations (such as OSHA 29 CFR 1910.147), or your facility's site-specific written energy control and permitting procedures. Always follow approved plant procedures and verify actual field conditions before performing work on industrial equipment.
+> **For Educational & Gamified Training Use Only:** This application is a simplified interactive learning aid designed to build familiarity with P&ID isolation concepts and Lockout, Tagout, Tryout (LOTOTO) principles. It is **not** a substitute for formal training, qualified supervision, applicable local or international energy control regulations, or your facility's site-specific written energy control and permitting procedures. Always follow approved plant procedures and verify actual field conditions before performing work on industrial equipment.

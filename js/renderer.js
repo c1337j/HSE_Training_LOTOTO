@@ -35,6 +35,10 @@
     return pts.map((p, idx) => `${idx === 0 ? 'M' : 'L'} ${p[0]} ${p[1]}`).join(' ');
   }
 
+  function tr(key, vars) {
+    return LOTOTO.i18n ? LOTOTO.i18n.t(key, vars) : key;
+  }
+
   function render(svgEl, level, state, evalRes, options = {}) {
     const { onInteract, onHover, onLeave, hintDeviceId, activeFx } = options;
     svgEl.innerHTML = '';
@@ -71,7 +75,7 @@
     bgGroup.appendChild(el('text', {
       x: 861, y: 557, 'text-anchor': 'middle',
       'font-family': 'JetBrains Mono, monospace', 'font-size': 9.5, 'font-weight': 800, fill: '#64748b'
-    }, `P&ID DWG-L${String(level.id).padStart(2, '0')} · LOTOTO MARKUP`));
+    }, tr('svg_stamp', { num: String(level.id).padStart(2, '0') })));
     svgEl.appendChild(bgGroup);
 
     // Layer 1: Multi-Compartment Equipment Frames (Exchangers, Reactors, Compressors, Tanks)
@@ -355,7 +359,7 @@
       g.appendChild(el('text', {
         x: 0, y: 51, 'text-anchor': 'middle',
         'font-family': 'JetBrains Mono, monospace', 'font-size': 10.5, 'font-weight': 800, fill: '#ffffff'
-      }, keepLiveViolated ? 'STARVED!' : isIsoZero ? `${n.label} ✓` : n.label));
+      }, keepLiveViolated ? tr('svg_starved') : isIsoZero ? `${n.label} ✓` : n.label));
       if (n.sublabel) {
         g.appendChild(el('text', {
           x: 0, y: 71, 'text-anchor': 'middle',
@@ -413,7 +417,7 @@
       g.appendChild(el('text', {
         x: 0, y: 12, 'text-anchor': 'middle',
         'font-family': 'Plus Jakarta Sans, sans-serif', 'font-size': 8.2, 'font-weight': 800, fill: '#475569'
-      }, 'HP METER'));
+      }, tr('svg_hp_meter')));
       return g;
     }
 
@@ -452,12 +456,20 @@
     return g;
   }
 
-  function drawPadlockBadge(x, y) {
+  function drawPadlockBadge(x, y, tagNum) {
     const g = el('g', { transform: `translate(${x}, ${y})` });
-    // Yellow LOTO tag hanging slightly right
-    g.appendChild(el('rect', { x: 4, y: -3, width: 13, height: 15, rx: 2.5, fill: '#fef08a', stroke: '#b45309', 'stroke-width': 1.4 }));
-    g.appendChild(el('line', { x1: 7, y1: 2, x2: 14, y2: 2, stroke: '#b45309', 'stroke-width': 1.3 }));
-    g.appendChild(el('line', { x1: 7, y1: 6, x2: 14, y2: 6, stroke: '#b45309', 'stroke-width': 1.3 }));
+    // Mini international DANGER LOTO tag hanging slightly right
+    g.appendChild(el('rect', { x: 4, y: -5, width: 17, height: 18, rx: 2.5, fill: '#ffffff', stroke: '#0f172a', 'stroke-width': 1.3 }));
+    g.appendChild(el('rect', { x: 4.6, y: -4.4, width: 15.8, height: 5.5, rx: 1.5, fill: '#dc2626' }));
+    if (tagNum) {
+      g.appendChild(el('text', {
+        x: 12.5, y: 9.5, 'text-anchor': 'middle',
+        'font-family': 'JetBrains Mono, monospace', 'font-size': 7.4, 'font-weight': 800, fill: '#0f172a'
+      }, `#${tagNum}`));
+    } else {
+      g.appendChild(el('line', { x1: 7, y1: 5, x2: 18, y2: 5, stroke: '#475569', 'stroke-width': 1.2 }));
+      g.appendChild(el('line', { x1: 7, y1: 9, x2: 16, y2: 9, stroke: '#475569', 'stroke-width': 1.2 }));
+    }
     // Red Padlock
     g.appendChild(el('path', {
       d: 'M -7,-5 V -9 A 5,5 0 0 1 3,-9 V -5',
@@ -493,7 +505,8 @@
       g.appendChild(body);
 
       if (isLocked) {
-        g.appendChild(drawPadlockBadge(dev.orient === 'v' ? 24 : 2, dev.orient === 'v' ? -4 : -28));
+        const tNum = state.tagNumbers && state.tagNumbers[dev.id];
+        g.appendChild(drawPadlockBadge(dev.orient === 'v' ? 24 : 2, dev.orient === 'v' ? -4 : -28, tNum));
       }
 
       // Tag label pill
@@ -526,7 +539,7 @@
       if (isLocked) {
         // Open switch blade
         g.appendChild(el('line', { x1: -11, y1: 4, x2: 7, y2: -10, stroke: '#dc2626', 'stroke-width': 3.2, 'stroke-linecap': 'round' }));
-        g.appendChild(drawPadlockBadge(18, -18));
+        g.appendChild(drawPadlockBadge(18, -18, state.tagNumbers && state.tagNumbers[dev.id]));
       } else {
         // Closed energized blade
         g.appendChild(el('line', { x1: -11, y1: 4, x2: 11, y2: 4, stroke: '#ca8a04', 'stroke-width': 3.5, 'stroke-linecap': 'round' }));
@@ -554,7 +567,7 @@
         g.appendChild(el('circle', { cx: 0, cy: 0, r: 12, fill: '#dc2626', stroke: '#1e293b', 'stroke-width': 2.5 }));
         g.appendChild(el('line', { x1: -6, y1: -6, x2: 6, y2: 6, stroke: '#ffffff', 'stroke-width': 2.2 }));
         g.appendChild(el('line', { x1: 6, y1: -6, x2: -6, y2: 6, stroke: '#ffffff', 'stroke-width': 2.2 }));
-        g.appendChild(drawPadlockBadge(16, -24));
+        g.appendChild(drawPadlockBadge(16, -24, state.tagNumbers && state.tagNumbers[dev.id]));
       } else {
         // Open ring on pipe (y=0), solid disc hanging above (y=-21)
         g.appendChild(el('circle', { cx: 0, cy: -21, r: 10, fill: '#475569', stroke: '#1e293b', 'stroke-width': 2.2 }));
@@ -621,7 +634,7 @@
       g.appendChild(el('text', {
         x: 59, y: 9, 'text-anchor': 'middle',
         'font-family': 'JetBrains Mono, monospace', 'font-size': 7.5, 'font-weight': 800, fill: '#dc2626'
-      }, 'CSO RELIEF'));
+      }, tr('svg_cso_relief')));
       return g;
     }
 
@@ -629,7 +642,7 @@
     if (dev.kind === 'vent' || dev.kind === 'drain' || dev.kind === 'bleed') {
       const isOpen = state.devices[dev.id] === 'open';
       const labelPrefix = dev.kind === 'vent' ? '▲' : '▼';
-      const w = 78;
+      const w = 82;
       const h = 34;
       g.appendChild(el('rect', {
         x: -w / 2, y: -h / 2, width: w, height: h, rx: 10,
@@ -643,9 +656,9 @@
       }, `${labelPrefix} ${dev.tag}`));
       g.appendChild(el('text', {
         x: 0, y: 11, 'text-anchor': 'middle',
-        'font-family': 'JetBrains Mono, monospace', 'font-size': 8, 'font-weight': 800,
+        'font-family': 'JetBrains Mono, monospace', 'font-size': 7.8, 'font-weight': 800,
         fill: isOpen ? '#16a34a' : '#64748b'
-      }, isOpen ? 'OPEN · VENTED' : 'CLOSED'));
+      }, isOpen ? tr('svg_open_vented') : tr('svg_closed')));
       return g;
     }
 
@@ -703,9 +716,9 @@
       g.appendChild(el('circle', { cx: 16, cy: -5, r: 7, fill: '#ef4444', stroke: '#7f1d1d', 'stroke-width': 1.5 }));
       g.appendChild(el('text', {
         x: 0, y: 14, 'text-anchor': 'middle',
-        'font-family': 'JetBrains Mono, monospace', 'font-size': 8.5, 'font-weight': 800,
+        'font-family': 'JetBrains Mono, monospace', 'font-size': 8.2, 'font-weight': 800,
         fill: isVerified ? '#15803d' : '#1e293b'
-      }, isVerified ? 'DEAD ✓' : 'TRYOUT HOA'));
+      }, isVerified ? tr('svg_dead_ok') : tr('svg_tryout_hoa')));
       g.appendChild(el('text', {
         x: 0, y: -25, 'text-anchor': 'middle',
         'font-family': 'JetBrains Mono, monospace', 'font-size': 9, 'font-weight': 800, fill: '#334155'
@@ -729,9 +742,9 @@
       }));
       g.appendChild(el('text', {
         x: 0, y: -2, 'text-anchor': 'middle',
-        'font-family': 'JetBrains Mono, monospace', 'font-size': 8.5, 'font-weight': 800,
+        'font-family': 'JetBrains Mono, monospace', 'font-size': 8.2, 'font-weight': 800,
         fill: isVerified ? '#4ade80' : '#fde047'
-      }, isVerified ? '0% LEL ✓' : 'GAS TEST'));
+      }, isVerified ? tr('svg_lel_ok') : tr('svg_gas_test')));
       g.appendChild(el('text', {
         x: 0, y: 15, 'text-anchor': 'middle',
         'font-family': 'JetBrains Mono, monospace', 'font-size': 8.5, 'font-weight': 800,

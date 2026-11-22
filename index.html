@@ -14,7 +14,7 @@
     <!-- ==================== TOP NAVIGATION BAR ==================== -->
     <header class="topbar">
       <div class="topbar-left">
-        <button id="btn-home" class="brand-btn" title="Return to Level Map">
+        <button id="btn-home" class="brand-btn" data-i18n-title="home_title" title="Return to Level Map">
           <span class="brand-icon" aria-hidden="true">
             <svg viewBox="0 0 32 32" width="28" height="28">
               <rect x="6" y="14" width="20" height="14" rx="4" fill="#ef4444" stroke="#1e293b" stroke-width="2.2"/>
@@ -24,7 +24,7 @@
             </svg>
           </span>
           <span class="brand-text">
-            <strong>LOTOTO</strong> <span>MASTER</span>
+            <strong>LOTOTO</strong> <span data-i18n="brand_master">MASTER</span>
           </span>
         </button>
         <div id="topbar-level-pill" class="level-pill hidden">
@@ -37,38 +37,42 @@
       <nav id="lototo-stepper" class="lototo-stepper hidden" aria-label="LOTOTO Procedure Steps">
         <div class="step-chip" id="step-lock" data-step="lock">
           <span class="step-num">1</span>
-          <span class="step-label">LOCK &amp; TAG</span>
+          <span class="step-label" data-i18n="step_lock">LOCK &amp; TAG</span>
           <span class="step-check" aria-hidden="true"></span>
         </div>
         <div class="step-arrow" aria-hidden="true">→</div>
         <div class="step-chip" id="step-vent" data-step="vent">
           <span class="step-num">2</span>
-          <span class="step-label">VENT &amp; DRAIN</span>
+          <span class="step-label" data-i18n="step_vent">VENT &amp; DRAIN</span>
           <span class="step-check" aria-hidden="true"></span>
         </div>
         <div class="step-arrow" aria-hidden="true">→</div>
         <div class="step-chip" id="step-tryout" data-step="tryout">
           <span class="step-num">3</span>
-          <span class="step-label">TRYOUT</span>
+          <span class="step-label" data-i18n="step_tryout">TRYOUT</span>
           <span class="step-check" aria-hidden="true"></span>
         </div>
       </nav>
 
       <div class="topbar-right">
-        <div class="stat-pill xp-pill" title="Safety Rank &amp; XP">
+        <div class="lang-select-wrap" data-i18n-title="lang_label" title="Language">
+          <span class="lang-globe" aria-hidden="true">🌐</span>
+          <select id="lang-select" class="lang-select" data-i18n-aria="lang_label" aria-label="Language"></select>
+        </div>
+        <div class="stat-pill xp-pill" data-i18n-title="xp_title" title="Safety Rank &amp; XP">
           <span class="stat-icon">⚡</span>
           <span id="hud-rank">Trainee</span>
           <span class="stat-divider">·</span>
           <span id="hud-xp">0 XP</span>
         </div>
-        <div class="stat-pill stars-pill" title="Total Stars Earned">
+        <div class="stat-pill stars-pill" data-i18n-title="stars_title" title="Total Stars Earned">
           <span class="stat-icon">★</span>
           <span id="hud-stars">0 / 45</span>
         </div>
-        <button id="btn-sound" class="icon-btn" title="Toggle Sound Effects" aria-label="Toggle Sound Effects">
+        <button id="btn-sound" class="icon-btn" data-i18n-title="sound_title" data-i18n-aria="sound_title" title="Toggle Sound Effects" aria-label="Toggle Sound Effects">
           <span id="sound-icon">🔊</span>
         </button>
-        <button id="btn-guide" class="icon-btn" title="LOTOTO Quick Guide &amp; P&amp;ID Legend" aria-label="Open P&amp;ID Legend">
+        <button id="btn-guide" class="icon-btn" data-i18n-title="guide_title" data-i18n-aria="guide_title" title="LOTOTO Quick Guide &amp; P&amp;ID Legend" aria-label="Open P&amp;ID Legend">
           <span>?</span>
         </button>
       </div>
@@ -78,9 +82,9 @@
     <main id="screen-map" class="screen active">
       <section class="hero-banner">
         <div class="hero-content">
-          <div class="hero-badge">P&amp;ID ISOLATION &amp; SAFETY SIMULATOR</div>
-          <h1>Master <span>Lockout · Tagout · Tryout</span> on Live P&amp;IDs</h1>
-          <p>
+          <div class="hero-badge" data-i18n="hero_badge">P&amp;ID ISOLATION &amp; SAFETY SIMULATOR</div>
+          <h1 data-i18n-html="hero_title_html">Master <span>Lockout · Tagout · Tryout</span> on Live P&amp;IDs</h1>
+          <p data-i18n="hero_desc">
             Select and lock isolation points on color-coded piping diagrams, watch isolated flow paths
             highlight like a real job-prep markup, release stored energy, and perform Tryout verification
             before issuing a Safe Work Permit.
@@ -89,12 +93,12 @@
             <button id="btn-play-next" class="btn btn-primary btn-lg">
               ▶ Play Level 1
             </button>
-            <button id="btn-how-to-play" class="btn btn-secondary btn-lg">
+            <button id="btn-how-to-play" class="btn btn-secondary btn-lg" data-i18n="btn_how_to_play">
               📘 P&amp;ID Legend &amp; Rules
             </button>
-            <label class="unlock-toggle" title="Allow jumping to any level (great for instructors &amp; demos)">
+            <label class="unlock-toggle">
               <input type="checkbox" id="chk-unlock-all" />
-              <span>Instructor Mode (Unlock All 15)</span>
+              <span data-i18n="instructor_mode">Instructor Mode (Unlock All 15)</span>
             </label>
           </div>
         </div>
@@ -102,7 +106,7 @@
           <div class="mini-markup-card">
             <div class="mini-card-header">
               <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-              <span>LIVE P&amp;ID MARKUP PREVIEW</span>
+              <span data-i18n="mini_card_header">LIVE P&amp;ID MARKUP PREVIEW</span>
             </div>
             <svg viewBox="0 0 340 165" class="mini-svg" aria-hidden="true">
               <defs>
@@ -132,7 +136,7 @@
               <g transform="translate(170,86)">
                 <circle r="24" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
                 <polygon points="-8,-11 13,0 -8,11" fill="#16a34a"/>
-                <text y="39" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800" fill="#15803d">P-101 SAFE ✓</text>
+                <text y="39" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800" fill="#15803d" data-i18n="mini_pump_safe">P-101 SAFE ✓</text>
               </g>
               <!-- Locked Valve 2 -->
               <g transform="translate(252,86)">
@@ -141,9 +145,9 @@
                 <rect x="-8" y="-28" width="16" height="12" rx="3" fill="#ef4444" stroke="#1e293b" stroke-width="1.8"/>
                 <path d="M-4,-28 v-4 a4,4 0 0,1 8,0 v4" fill="none" stroke="#1e293b" stroke-width="2"/>
               </g>
-              <text x="170" y="24" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="800" fill="#0f172a">ISOLATED ENVELOPE HIGHLIGHTED</text>
-              <text x="50" y="114" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#0284c7">LIVE 150 PSI</text>
-              <text x="292" y="114" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#0284c7">LIVE HEADER</text>
+              <text x="170" y="24" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5" font-weight="800" fill="#0f172a" data-i18n="mini_isolated_env">ISOLATED ENVELOPE HIGHLIGHTED</text>
+              <text x="50" y="114" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" fill="#0284c7" data-i18n="mini_live_psi">LIVE 150 PSI</text>
+              <text x="292" y="114" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" fill="#0284c7" data-i18n="mini_live_header">LIVE HEADER</text>
             </svg>
           </div>
         </div>
@@ -152,11 +156,11 @@
       <section class="campaign-section">
         <div class="campaign-header">
           <div>
-            <h2>15-Level LOTOTO Certification Campaign</h2>
-            <p class="subtitle">Progress from single-pump isolation to full turnaround packages.</p>
+            <h2 data-i18n="campaign_title">15-Level LOTOTO Certification Campaign</h2>
+            <p class="subtitle" data-i18n="campaign_subtitle">Progress from single-pump isolation to full turnaround packages.</p>
           </div>
           <div class="campaign-progress-wrap">
-            <div class="progress-text"><span id="map-completed-count">0</span> / 15 Permits Issued</div>
+            <div class="progress-text" id="map-permits-text">0 / 15 Permits Issued</div>
             <div class="progress-bar"><div id="map-progress-fill" class="progress-fill" style="width:0%"></div></div>
           </div>
         </div>
@@ -174,21 +178,24 @@
         <section class="pid-stage-card">
           <div class="pid-toolbar">
             <div class="pid-toolbar-left">
-              <button id="btn-briefing" class="tool-chip" title="View Work Order Briefing">
+              <button id="btn-briefing" class="tool-chip" data-i18n="btn_briefing">
                 📋 Work Permit Brief
+              </button>
+              <button id="btn-tag" class="tool-chip tag-chip" data-i18n="tag_btn_prepare">
+                🏷️ LOTO Tag
               </button>
               <span id="standard-badge" class="standard-badge">SINGLE BLOCK</span>
               <span id="combo-badge" class="combo-badge hidden">🔥 3x Clean Streak</span>
             </div>
             <div class="pid-toolbar-right">
-              <div class="score-readout" title="Safety Compliance Score">
-                <span class="score-label">SAFETY</span>
+              <div class="score-readout">
+                <span class="score-label" data-i18n="safety_label">SAFETY</span>
                 <span id="hud-safety-score" class="score-val">100%</span>
               </div>
-              <button id="btn-hint" class="tool-chip hint-chip" title="Highlight a helpful next step (-10% score)">
+              <button id="btn-hint" class="tool-chip hint-chip" data-i18n="btn_hint">
                 💡 Hint
               </button>
-              <button id="btn-reset" class="tool-chip" title="Reset this P&amp;ID level">
+              <button id="btn-reset" class="tool-chip" data-i18n="btn_reset">
                 ↺ Reset
               </button>
             </div>
@@ -211,18 +218,18 @@
           <!-- Compact Highlighter & Fluid Legend Bar -->
           <div class="pid-legend-bar">
             <div class="legend-group">
-              <span class="legend-title">MARKUP:</span>
-              <span class="legend-item"><i class="swatch hl-yellow"></i>Isolated (Trapped)</span>
-              <span class="legend-item"><i class="swatch hl-green"></i>Zero Energy (Safe)</span>
-              <span class="legend-item"><i class="swatch hl-lock"></i>Locked &amp; Tagged</span>
+              <span class="legend-title" data-i18n="legend_markup">MARKUP:</span>
+              <span class="legend-item"><i class="swatch hl-yellow"></i><span data-i18n="legend_trapped">Isolated (Trapped)</span></span>
+              <span class="legend-item"><i class="swatch hl-green"></i><span data-i18n="legend_zero">Zero Energy (Safe)</span></span>
+              <span class="legend-item"><i class="swatch hl-lock"></i><span data-i18n="legend_locked">Locked &amp; Tagged</span></span>
             </div>
             <div class="legend-group">
-              <span class="legend-title">STREAMS:</span>
-              <span class="legend-item"><i class="swatch st-process"></i>Process</span>
-              <span class="legend-item"><i class="swatch st-steam"></i>Steam/Hot</span>
-              <span class="legend-item"><i class="swatch st-water"></i>Water</span>
-              <span class="legend-item"><i class="swatch st-gas"></i>Gas/N2</span>
-              <span class="legend-item"><i class="swatch st-elec"></i>Electrical</span>
+              <span class="legend-title" data-i18n="legend_streams">STREAMS:</span>
+              <span class="legend-item"><i class="swatch st-process"></i><span data-i18n="stream_process">Process</span></span>
+              <span class="legend-item"><i class="swatch st-steam"></i><span data-i18n="stream_steam">Steam/Hot</span></span>
+              <span class="legend-item"><i class="swatch st-water"></i><span data-i18n="stream_water">Water</span></span>
+              <span class="legend-item"><i class="swatch st-gas"></i><span data-i18n="stream_gas">Gas/N2</span></span>
+              <span class="legend-item"><i class="swatch st-elec"></i><span data-i18n="stream_elec">Electrical</span></span>
             </div>
           </div>
         </section>
@@ -230,7 +237,7 @@
         <!-- Right Sidebar: Permit Checklist & Controls -->
         <aside class="side-panel">
           <div class="panel-card target-card">
-            <div class="card-eyebrow">WORK ORDER TARGET</div>
+            <div class="card-eyebrow" data-i18n="side_target_eyebrow">WORK ORDER TARGET</div>
             <h3 id="side-target-name">P-101 Centrifugal Pump</h3>
             <p id="side-work-scope" class="work-scope">Mechanical seal replacement. Isolate all energy sources and verify zero energy.</p>
             <div id="keep-live-callout" class="keep-live-callout hidden">
@@ -241,7 +248,7 @@
 
           <div class="panel-card checklist-card">
             <div class="card-header-row">
-              <div class="card-eyebrow">LOTOTO PERMIT CHECKLIST</div>
+              <div class="card-eyebrow" data-i18n="side_checklist_eyebrow">LOTOTO PERMIT CHECKLIST</div>
               <span id="checklist-fraction" class="fraction-pill">0 / 4</span>
             </div>
             <ul id="permit-checklist" class="permit-checklist">
@@ -250,7 +257,7 @@
           </div>
 
           <div class="panel-card log-card">
-            <div class="card-eyebrow">ISOLATION LOGBOOK</div>
+            <div class="card-eyebrow" data-i18n="side_log_eyebrow">ISOLATION LOGBOOK</div>
             <ul id="action-log" class="action-log">
               <!-- Recent actions -->
             </ul>
@@ -273,21 +280,21 @@
         <h2 id="brief-title">Pump Seal Swap</h2>
         <div class="brief-grid">
           <div class="brief-box">
-            <div class="brief-label">TARGET EQUIPMENT</div>
+            <div class="brief-label" data-i18n="brief_target_label">TARGET EQUIPMENT</div>
             <div class="brief-val" id="brief-target">P-101 Centrifugal Pump</div>
           </div>
           <div class="brief-box">
-            <div class="brief-label">ISOLATION STANDARD</div>
+            <div class="brief-label" data-i18n="brief_standard_label">ISOLATION STANDARD</div>
             <div class="brief-val" id="brief-standard">Single Block &amp; Bleed</div>
           </div>
         </div>
         <p id="brief-description" class="brief-desc"></p>
         <div class="brief-tip-box">
-          <div class="tip-title">🎯 SAFETY FOCUS</div>
+          <div class="tip-title" data-i18n="brief_focus_title">🎯 SAFETY FOCUS</div>
           <p id="brief-lesson"></p>
         </div>
         <div class="modal-actions">
-          <button id="btn-start-level" class="btn btn-primary btn-lg">Start P&amp;ID Isolation →</button>
+          <button id="btn-start-level" class="btn btn-primary btn-lg" data-i18n="btn_start_level">Start P&amp;ID Isolation →</button>
         </div>
       </div>
     </div>
@@ -295,34 +302,34 @@
     <!-- ==================== MODAL: LEVEL COMPLETE / PERMIT ISSUED ==================== -->
     <div id="modal-complete" class="modal-backdrop hidden" role="dialog" aria-modal="true">
       <div class="modal-card complete-modal">
-        <div class="permit-stamp">SAFE WORK PERMIT ISSUED</div>
+        <div class="permit-stamp" data-i18n="complete_stamp">SAFE WORK PERMIT ISSUED</div>
         <div id="complete-stars" class="stars-display" aria-label="Star Rating">★★★</div>
         <h2 id="complete-title">Zero Energy Verified!</h2>
-        <p id="complete-subtitle" class="complete-sub">P-101 is safely isolated and ready for maintenance.</p>
+        <p id="complete-subtitle" class="complete-sub">P-101 is safely isolated and ready for work.</p>
 
         <div class="stats-grid">
           <div class="stat-box">
-            <div class="stat-box-label">Safety Score</div>
+            <div class="stat-box-label" data-i18n="stat_safety_score">Safety Score</div>
             <div class="stat-box-val" id="comp-score">100%</div>
           </div>
           <div class="stat-box">
-            <div class="stat-box-label">Mistakes</div>
+            <div class="stat-box-label" data-i18n="stat_mistakes">Mistakes</div>
             <div class="stat-box-val" id="comp-mistakes">0</div>
           </div>
           <div class="stat-box">
-            <div class="stat-box-label">XP Earned</div>
+            <div class="stat-box-label" data-i18n="stat_xp_earned">XP Earned</div>
             <div class="stat-box-val xp-val" id="comp-xp">+150 XP</div>
           </div>
         </div>
 
         <div class="takeaway-box">
-          <div class="tip-title">🦺 REAL-WORLD LOTOTO TAKEAWAY</div>
+          <div class="tip-title" data-i18n="takeaway_title">🦺 REAL-WORLD LOTOTO TAKEAWAY</div>
           <p id="comp-takeaway"></p>
         </div>
 
         <div class="modal-actions">
-          <button id="btn-replay-level" class="btn btn-secondary">↺ Replay</button>
-          <button id="btn-back-map" class="btn btn-secondary">🗺️ Level Map</button>
+          <button id="btn-replay-level" class="btn btn-secondary" data-i18n="btn_replay">↺ Replay</button>
+          <button id="btn-back-map" class="btn btn-secondary" data-i18n="btn_back_map">🗺️ Level Map</button>
           <button id="btn-next-level" class="btn btn-primary btn-lg">Next Level →</button>
         </div>
       </div>
@@ -332,30 +339,146 @@
     <div id="modal-guide" class="modal-backdrop hidden" role="dialog" aria-modal="true">
       <div class="modal-card guide-modal">
         <div class="modal-header-row">
-          <h2>📘 LOTOTO Field Guide &amp; P&amp;ID Symbols</h2>
-          <button id="btn-close-guide" class="close-x" aria-label="Close Guide">✕</button>
+          <h2 data-i18n="guide_title_h2">📘 LOTOTO Field Guide &amp; P&amp;ID Symbols</h2>
+          <button id="btn-close-guide" class="close-x" aria-label="Close">✕</button>
         </div>
         <div class="guide-sections">
           <div class="guide-block">
-            <h3>The 3-Step LOTOTO Sequence</h3>
+            <h3 data-i18n="guide_seq_h3">The 3-Step LOTOTO Sequence</h3>
             <ol class="guide-steps">
-              <li><strong>Lock &amp; Tag (LOTO):</strong> Close and apply personal locks/tags to manual block valves &amp; electrical MCC breakers. Watch isolated pipes automatically highlight in <strong>Yellow</strong>!</li>
-              <li><strong>Vent &amp; Drain:</strong> Open vents, drains, or inter-valve bleeds on <em>isolated</em> segments to release trapped stored energy. The highlighter turns <strong>Emerald Green</strong>! (Never vent a live pressurized line!)</li>
-              <li><strong>Tryout (TO):</strong> Prove Zero Energy! Click local <strong>Start/Stop (HOA)</strong> switches to verify motors won't start, click <strong>Pressure Gauges (PI)</strong> at <code>0 PSI</code>, and run <strong>Gas Monitors</strong> for confined space entry.</li>
+              <li data-i18n-html="guide_step1_html"><strong>Lock &amp; Tag (LOTO):</strong> Close and apply personal locks/tags to manual block valves &amp; electrical MCC breakers. Watch isolated pipes automatically highlight in <strong>Yellow</strong>!</li>
+              <li data-i18n-html="guide_step2_html"><strong>Vent &amp; Drain:</strong> Open vents, drains, or inter-valve bleeds on <em>isolated</em> segments to release trapped stored energy. The highlighter turns <strong>Emerald Green</strong>! (Never vent a live pressurized line!)</li>
+              <li data-i18n-html="guide_step3_html"><strong>Tryout (TO):</strong> Prove Zero Energy! Click local <strong>Start/Stop (HOA)</strong> switches to verify motors won't start, click <strong>Pressure Gauges (PI)</strong> at <code>0 PSI</code>, and run <strong>Gas Monitors</strong> for confined space entry.</li>
             </ol>
           </div>
           <div class="guide-block">
-            <h3>Watch Out for Industrial Traps!</h3>
+            <h3 data-i18n="guide_traps_h3">Watch Out for Industrial Traps!</h3>
             <ul class="guide-traps">
-              <li><strong>Control Valves (FV / LV / PV):</strong> NOT valid positive isolation! Actuators can fail open and trim leaks. Always lock manual block valves.</li>
-              <li><strong>Check Valves (CV):</strong> One-way flappers are NOT valid LOTO points—they cannot be locked and frequently leak backpressure.</li>
-              <li><strong>Spectacle Blinds (SB):</strong> Required for hot work / line breaking / confined space—always isolate &amp; depressurize <em>before</em> swinging a blind!</li>
-              <li><strong>Keep-Live Units:</strong> Don't close a shared plant header if a standby pump or adjacent unit must stay online!</li>
+              <li data-i18n-html="guide_seq_rule_html"><strong>Safe Operating Sequence:</strong> Always stop &amp; lock out motors <em>before</em> closing pump/compressor valves (prevents deadheading &amp; cavitation), and isolate heat sources <em>before</em> cooling/trapped fluid on exchangers!</li>
+              <li data-i18n-html="guide_trap1_html"><strong>Control Valves (FV / LV / PV):</strong> NOT valid positive isolation! Actuators can fail open and trim leaks. Always lock manual block valves.</li>
+              <li data-i18n-html="guide_trap2_html"><strong>Check Valves (CV):</strong> One-way flappers are NOT valid LOTO points—they cannot be locked and frequently leak backpressure.</li>
+              <li data-i18n-html="guide_trap3_html"><strong>Spectacle Blinds (SB):</strong> Required for hot work / line breaking / confined space—always isolate &amp; depressurize <em>before</em> swinging a blind!</li>
+              <li data-i18n-html="guide_trap4_html"><strong>Keep-Live Units:</strong> Don't close a shared plant header if a standby pump or adjacent unit must stay online!</li>
             </ul>
           </div>
         </div>
         <div class="modal-actions">
-          <button id="btn-guide-ok" class="btn btn-primary">Got It — Back to P&amp;ID</button>
+          <button id="btn-guide-ok" class="btn btn-primary" data-i18n="btn_guide_ok">Got It — Back to P&amp;ID</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== MODAL: HSE INCIDENT CONSEQUENCE REPORT ==================== -->
+    <div id="modal-incident" class="modal-backdrop hidden" role="alertdialog" aria-modal="true" aria-labelledby="inc-title">
+      <div id="incident-card" class="modal-card incident-modal fatal">
+        <div class="incident-header-bar">
+          <span id="inc-icon" class="inc-icon" aria-hidden="true">🚨</span>
+          <span id="inc-badge" class="inc-badge">CRITICAL HSE INCIDENT — POTENTIAL FATALITY</span>
+        </div>
+
+        <h2 id="inc-title">Fatal Superheated Steam Release</h2>
+
+        <div class="inc-telemetry-grid">
+          <div class="inc-metric">
+            <div class="inc-metric-label" data-i18n="inc_lbl_device">DEVICE</div>
+            <div class="inc-metric-val" id="inc-device">DR-101</div>
+          </div>
+          <div class="inc-metric">
+            <div class="inc-metric-label" data-i18n="inc_lbl_medium">MEDIUM</div>
+            <div class="inc-metric-val" id="inc-medium">High-Temp Steam</div>
+          </div>
+          <div class="inc-metric">
+            <div class="inc-metric-label" data-i18n="inc_lbl_rating">LINE / RATING</div>
+            <div class="inc-metric-val" id="inc-rating">4" · 350 PSI</div>
+          </div>
+          <div class="inc-metric">
+            <div class="inc-metric-label" data-i18n="inc_lbl_severity">SEVERITY</div>
+            <div class="inc-metric-val sev-val" id="inc-severity">FATAL / LIFE-THREATENING</div>
+          </div>
+        </div>
+
+        <div class="inc-consequence-box">
+          <div class="inc-section-eyebrow" data-i18n="inc_consequence_hdr">REAL-WORLD FIELD CONSEQUENCE</div>
+          <p id="inc-body"></p>
+        </div>
+
+        <div class="inc-sequence-box">
+          <div class="inc-section-eyebrow seq-eyebrow" data-i18n="inc_sequence_hdr">REQUIRED SAFE ISOLATION SEQUENCE</div>
+          <p id="inc-sequence"></p>
+        </div>
+
+        <div class="modal-actions">
+          <button id="btn-incident-ack" class="btn btn-danger btn-lg">↺ Acknowledge &amp; Restart Level</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== MODAL: GLOBAL ISO-STYLE LOTO DANGER TAG ==================== -->
+    <div id="modal-tag" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="tag-header-title">
+      <div class="modal-card loto-tag-modal">
+        <div class="loto-tag-top">
+          <div class="tag-grommet" aria-hidden="true"></div>
+          <div class="tag-iso-header">
+            <span class="tag-iso-symbol" aria-hidden="true">
+              <svg viewBox="0 0 40 40" width="40" height="40">
+                <circle cx="20" cy="20" r="17" fill="#ffffff" stroke="#dc2626" stroke-width="4.5"/>
+                <rect x="13.5" y="19" width="13" height="10" rx="2" fill="#0f172a"/>
+                <path d="M16 19v-3.5a4 4 0 0 1 8 0V19" fill="none" stroke="#0f172a" stroke-width="2.4" stroke-linecap="round"/>
+                <line x1="8" y1="8" x2="32" y2="32" stroke="#dc2626" stroke-width="4.2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <div class="tag-iso-titles">
+              <div class="tag-iso-danger" id="tag-header-title" data-i18n="tag_danger_word">DANGER</div>
+              <div class="tag-do-not-op" data-i18n="tag_do_not_operate">DO NOT OPERATE</div>
+            </div>
+          </div>
+          <div class="tag-sub-strip" data-i18n="tag_sub_banner">EQUIPMENT LOCKED OUT · AUTHORIZED PERSONNEL ONLY</div>
+        </div>
+        <div class="tag-hazard-stripe" aria-hidden="true"></div>
+
+        <div class="loto-tag-body">
+          <div id="tag-error-banner" class="tag-error-banner hidden" role="alert"></div>
+
+          <div class="tag-field-row two-col">
+            <div class="tag-field">
+              <label for="tag-input-name" data-i18n="tag_lbl_name">AUTHORIZED EMPLOYEE NAME</label>
+              <input type="text" id="tag-input-name" class="tag-input" maxlength="40" placeholder="Enter your name" />
+            </div>
+            <div class="tag-field">
+              <label for="tag-input-date" data-i18n="tag_lbl_date">DATE &amp; TIME APPLIED</label>
+              <div class="tag-date-wrap">
+                <input type="text" id="tag-input-date" class="tag-input" maxlength="32" placeholder="YYYY-MM-DD HH:MM" />
+                <button type="button" id="btn-tag-stamp" class="btn-stamp" data-i18n="tag_btn_stamp">📅 Stamp Now</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="tag-field">
+            <label data-i18n="tag_lbl_equip">EQUIPMENT ID BEING ISOLATED</label>
+            <div id="tag-equip-options" class="tag-choice-grid"></div>
+          </div>
+
+          <div class="tag-field">
+            <label data-i18n="tag_lbl_reason">REASON FOR LOCKOUT</label>
+            <div id="tag-reason-options" class="tag-choice-grid vertical"></div>
+          </div>
+
+          <div class="tag-points-box">
+            <div class="tag-points-label" data-i18n="tag_lbl_points">ISOLATION POINTS TAGGED ON THIS PERMIT</div>
+            <div id="tag-points-list" class="tag-points-list"></div>
+          </div>
+
+          <div class="tag-realworld-note">
+            <div class="rw-title" data-i18n="tag_realworld_title">📌 REAL-WORLD FIELD REQUIREMENT</div>
+            <p data-i18n="tag_realworld_note">
+              To avoid repetitive typing in this simulator, completing this tag once auto-applies numbered tags (#1, #2, #3...) to each lock on this level. In a real plant, you MUST complete and attach a separate DANGER tag for EACH individual isolation point!
+            </p>
+          </div>
+
+          <div class="modal-actions tag-modal-actions">
+            <button type="button" id="btn-tag-cancel" class="btn btn-secondary" data-i18n="tag_btn_cancel">Cancel</button>
+            <button type="button" id="btn-tag-submit" class="btn btn-danger btn-lg" data-i18n="tag_btn_submit">🔒 Sign Tag &amp; Apply Lock</button>
+          </div>
         </div>
       </div>
     </div>
@@ -365,6 +488,13 @@
   </div>
 
   <!-- Ordered standard scripts (works both via file:// and GitHub Pages) -->
+  <script src="js/i18n.js"></script>
+  <script src="js/locales/ui-latin.js"></script>
+  <script src="js/locales/ui-nordic-cjk.js"></script>
+  <script src="js/locales/levels-latin.js"></script>
+  <script src="js/locales/levels-nordic-cjk.js"></script>
+  <script src="js/locales/incidents-i18n.js"></script>
+  <script src="js/locales/tag-i18n.js"></script>
   <script src="js/audio.js"></script>
   <script src="js/engine.js"></script>
   <script src="js/levels.js"></script>
